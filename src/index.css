@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* අපේ අලුත් Premium Theme එක මෙතනින් තමයි Configure කරන්නේ */
+@theme {
+  --color-vdj-bg: #0a0a0a;
+  --color-vdj-surface: #121212;
+  --color-vdj-gold: #D4AF37;
+  --color-vdj-goldLight: #F3E5AB;
+  --color-vdj-text: #FFFFFF;
+  --color-vdj-muted: #888888;
+
+  --font-heading: 'Unbounded', sans-serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;800;900&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-vdj-bg);
+  color: var(--color-vdj-text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  /* Subtle gold radial gradients for a luxury feel */
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.05), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.03), transparent 25%);
+}
+
+/* Premium Glassmorphism Cards */
+.glass-panel {
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1);
+}
+
+/* Gold Text Gradient */
+.text-gold-gradient {
+  background: linear-gradient(to right, var(--color-vdj-gold), var(--color-vdj-goldLight), var(--color-vdj-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-vdj-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-vdj-gold); border-radius: 4px; }
