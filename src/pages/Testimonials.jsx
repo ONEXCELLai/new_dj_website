@@ -2,14 +2,13 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote, Headphones, Settings2, Truck, Sparkles, X, Image as ImageIcon } from "lucide-react";
 
-// මෙතන 'screenshot' කියන තැනට ඔයාගේ WhatsApp images වල නම් දෙන්න පුළුවන්. 
-// පින්තූර ටික frontend/public/reviews/ කියන folder එකක් හදලා ඒකට දාන්න.
+// WhatsApp images ටික frontend/public/reviews/ folder එකට දාන්න.
 const reviews = [
   {
     name: "Priyantha & Family",
     role: "Wedding · Colombo",
     text: "Vinodh is a superstar DJ. He read the room perfectly — calm during the ceremony, fire on the dance floor. Our elders sang, our cousins screamed. Magic.",
-    screenshot: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&q=80", // තාවකාලික පින්තූරයක් (ඔයාගේ එකට මාරු කරන්න: "/reviews/whatsapp-1.jpg")
+    screenshot: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&q=80",
   },
   {
     name: "Dilini Fernando",
@@ -46,14 +45,16 @@ const steps = [
 
 export default function Testimonials() {
   const [idx, setIdx] = useState(0);
-  const [selectedReview, setSelectedReview] = useState(null); // Popup එකට අදාළ State එක
+  const [selectedReview, setSelectedReview] = useState(null);
 
   const next = () => setIdx((p) => (p + 1) % reviews.length);
   const prev = () => setIdx((p) => (p - 1 + reviews.length) % reviews.length);
 
   return (
-    <div className="relative min-h-screen">
-      <section className="relative pt-16 pb-12 overflow-hidden">
+    <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden w-full">
+      
+      {/* HEADER SECTION */}
+      <section className="relative pt-16 pb-12 overflow-hidden z-20">
         <div className="relative z-10 px-6 mx-auto max-w-7xl lg:px-12">
           <p className="font-mono text-xs tracking-[0.3em] text-vdj-gold">◢ REVIEWS · PROCESS</p>
           <h1 className="font-heading mt-4 text-5xl sm:text-6xl lg:text-7xl font-black leading-[0.95]">
@@ -65,7 +66,7 @@ export default function Testimonials() {
       </section>
 
       {/* 3D CAROUSEL */}
-      <section className="relative z-10 pb-24 overflow-hidden">
+      <section className="relative z-20 pb-24 overflow-hidden">
         <div className="max-w-6xl px-6 mx-auto lg:px-12">
           <div className="relative h-[480px] sm:h-[420px] flex items-center justify-center" style={{ perspective: 1400 }}>
             {reviews.map((r, i) => {
@@ -76,22 +77,30 @@ export default function Testimonials() {
               return (
                 <motion.div
                   key={i}
+                  // 🚀 Animation, Opacity සහ zIndex ඔක්කොම Framer Motion එකටම දුන්නා
                   animate={{
                     x: pos * 60,
                     z: -Math.abs(pos) * 200,
                     rotateY: pos * -25,
                     scale: isActive ? 1 : 0.85,
-                    opacity: Math.abs(pos) > 2 ? 0 : 1 - Math.abs(pos) * 0.25,
-                    zIndex: 10 - Math.abs(pos),
+                    opacity: Math.abs(pos) > 2 ? 0 : 1 - Math.abs(pos) * 0.4,
+                    zIndex: isActive ? 30 : 10 - Math.abs(pos)
                   }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                   onClick={() => {
-                    // මැද තියෙන එක click කළොත් popup එක open වෙනවා, නැත්නම් ඒක මැදට එනවා
                     if (isActive) setSelectedReview(r);
                     else setIdx(i);
                   }}
-                  className={`absolute w-[90%] sm:w-[560px] rounded-3xl p-8 sm:p-10 glass-panel cursor-pointer group ${isActive ? 'border-vdj-gold/40 shadow-[0_0_30px_rgba(212,175,55,0.15)]' : 'border-white/5'}`}
-                  style={{ transformStyle: "preserve-3d" }}
+                  // ❌ transition-all අයින් කරලා තියෙන්නේ fight කරන එක නවත්වන්න
+                  className={`absolute w-[90%] sm:w-[560px] rounded-3xl p-8 sm:p-10 bg-[#0a0a0a] cursor-pointer group ${
+                    isActive 
+                      ? 'border border-vdj-gold/50 shadow-[0_10px_40px_rgba(212,175,55,0.2)]' 
+                      : 'border border-white/5 select-none hidden sm:block'
+                  }`}
+                  style={{ 
+                    transformStyle: "preserve-3d",
+                    pointerEvents: isActive ? "auto" : "none" // Inactive ඒවා click/hover mix වෙන එක වැළැක්වීමට
+                  }}
                 >
                   <Quote className="w-10 h-10 mb-4 text-vdj-gold" />
                   <p className="text-base leading-relaxed sm:text-lg text-white/90">"{r.text}"</p>
@@ -106,7 +115,6 @@ export default function Testimonials() {
                     </div>
                   </div>
 
-                  {/* Click to view hint - පෙන්වන්නේ මැද තියෙන එකට විතරයි */}
                   {isActive && (
                     <div className="flex items-center gap-2 pt-4 mt-6 text-sm transition-colors border-t border-white/10 text-vdj-goldLight/80 group-hover:text-vdj-gold">
                       <ImageIcon className="w-4 h-4" /> Click to view original message
@@ -118,8 +126,8 @@ export default function Testimonials() {
           </div>
 
           {/* Carousel Controls */}
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <button onClick={prev} className="flex items-center justify-center w-12 h-12 transition-colors border rounded-full border-white/15 hover:border-vdj-gold hover:text-vdj-gold">
+          <div className="flex items-center justify-center gap-4 mt-6 relative z-30">
+            <button onClick={prev} className="flex items-center justify-center w-12 h-12 transition-colors border rounded-full border-white/15 hover:border-vdj-gold hover:text-vdj-gold bg-[#050505]">
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div className="flex gap-2">
@@ -128,10 +136,11 @@ export default function Testimonials() {
                   key={i}
                   onClick={() => setIdx(i)}
                   className={`h-1.5 rounded-full transition-all ${i === idx ? "w-8 bg-vdj-gold" : "w-2 bg-white/20 hover:bg-white/40"}`}
+                  aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
             </div>
-            <button onClick={next} className="flex items-center justify-center w-12 h-12 transition-colors border rounded-full border-white/15 hover:border-vdj-gold hover:text-vdj-gold">
+            <button onClick={next} className="flex items-center justify-center w-12 h-12 transition-colors border rounded-full border-white/15 hover:border-vdj-gold hover:text-vdj-gold bg-[#050505]">
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
@@ -145,12 +154,13 @@ export default function Testimonials() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-vdj-bg/95 backdrop-blur-xl p-4 sm:p-10"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050505]/95 backdrop-blur-xl p-4 sm:p-10"
             onClick={() => setSelectedReview(null)}
           >
             <button
-              className="absolute z-10 p-2 text-white transition-colors rounded-full top-6 right-6 sm:top-10 sm:right-10 bg-white/10 hover:bg-vdj-gold hover:text-vdj-bg"
+              className="absolute z-10 p-2 text-white transition-colors rounded-full top-6 right-6 sm:top-10 sm:right-10 bg-white/10 hover:bg-vdj-gold hover:text-black"
               onClick={() => setSelectedReview(null)}
+              aria-label="Close modal"
             >
               <X className="w-6 h-6" />
             </button>
@@ -162,7 +172,7 @@ export default function Testimonials() {
                 exit={{ scale: 0.9, y: 20 }}
                 src={selectedReview.screenshot}
                 alt={`Review from ${selectedReview.name}`}
-                className="max-h-[75vh] w-auto rounded-2xl shadow-[0_0_50px_rgba(212,175,55,0.15)] border border-white/10 object-contain"
+                className="max-h-[75vh] w-auto rounded-2xl shadow-[0_0_50px_rgba(212,175,55,0.15)] border border-white/10 object-contain bg-black"
                 onClick={(e) => e.stopPropagation()} 
               />
               <motion.div 
@@ -180,8 +190,7 @@ export default function Testimonials() {
       </AnimatePresence>
 
       {/* PROCESS TIMELINE */}
-      <section className="relative py-24 border-t border-white/5 bg-vdj-surface/30">
-        {/* ... (අනෙක් ටික කලින් විදිහටම තියෙනවා) ... */}
+      <section className="relative py-24 border-t border-white/5 bg-[#0a0a0a]/40 z-20">
         <div className="px-6 mx-auto max-w-7xl lg:px-12">
           <div className="max-w-3xl mb-16">
             <p className="font-mono text-xs tracking-[0.3em] text-vdj-goldLight">◢ THE PROCESS</p>
@@ -204,16 +213,16 @@ export default function Testimonials() {
                   className="relative flex items-start gap-6"
                 >
                   <div className="relative z-10 flex-shrink-0">
-                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-vdj-bg border border-vdj-gold/40 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-[#050505] border border-vdj-gold/40 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
                       <s.icon className="w-6 h-6 text-vdj-gold" />
                     </div>
                   </div>
-                  <div className="flex-1 px-6 py-5 pt-1 glass-panel rounded-2xl border-white/5">
+                  <div className="flex-1 px-6 py-5 pt-1 bg-[#0a0a0a] rounded-2xl border border-white/5">
                     <div className="font-mono text-xs tracking-[0.3em] text-vdj-goldLight mb-2">
                       STEP 0{i + 1}
                     </div>
                     <h3 className="text-2xl font-bold text-white font-heading">{s.title}</h3>
-                    <p className="mt-3 leading-relaxed text-vdj-muted">{s.desc}</p>
+                    <p className="mt-3 leading-relaxed text-gray-400">{s.desc}</p>
                   </div>
                 </motion.div>
               ))}

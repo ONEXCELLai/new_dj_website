@@ -38,10 +38,13 @@ export default function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-[#050505]">
+      {/* 🚀 නිවැරදි කරපු Header Section එක */}
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-          scrolled ? "glass-panel border-x-0 border-t-0 rounded-none bg-[#0a0a0a]/90" : "bg-transparent border-transparent"
+          scrolled 
+            ? "bg-[#050505]/85 backdrop-blur-md border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.8)]" 
+            : "bg-transparent border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
@@ -75,7 +78,7 @@ export default function Layout() {
             </Link>
           </nav>
 
-          <button onClick={() => setOpen(!open)} className="lg:hidden text-vdj-gold p-2">
+          <button onClick={() => setOpen(!open)} className="lg:hidden text-vdj-gold p-2" aria-label="Toggle Menu">
             {open ? <X /> : <Menu />}
           </button>
         </div>
@@ -87,7 +90,7 @@ export default function Layout() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="lg:hidden glass-panel border-x-0 rounded-none bg-[#0a0a0a]"
+              className="lg:hidden border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur-lg shadow-xl"
             >
               <div className="px-6 py-6 flex flex-col gap-2">
                 {navItems.map((n) => (
@@ -125,7 +128,6 @@ export default function Layout() {
 
       {/* PROFESSIONAL FOOTER */}
       <footer className="mt-20 border-t border-white/10 bg-[#05050A] pt-16 pb-8 relative z-10 overflow-hidden">
-        {/* Glow effect for footer */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-vdj-gold/5 blur-[120px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 relative">
@@ -143,13 +145,13 @@ export default function Layout() {
               Sri Lanka's premier Video DJ, bringing nearly 30 years of international experience to weddings, corporate galas, and luxury parties.
             </p>
             <div className="flex items-center gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-vdj-gold hover:text-vdj-bg transition-colors">
+              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-vdj-gold hover:text-vdj-bg transition-colors" aria-label="Instagram">
                 <InstagramIcon />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-vdj-gold hover:text-vdj-bg transition-colors">
+              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-vdj-gold hover:text-vdj-bg transition-colors" aria-label="Facebook">
                 <FacebookIcon />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-vdj-gold hover:text-vdj-bg transition-colors">
+              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/70 hover:bg-vdj-gold hover:text-vdj-bg transition-colors" aria-label="YouTube">
                 <YoutubeIcon />
               </a>
             </div>
@@ -217,6 +219,7 @@ export default function Layout() {
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:scale-110 hover:shadow-[0_4px_25px_rgba(37,211,102,0.6)] transition-all duration-300 flex items-center justify-center group"
+        aria-label="Chat with us on WhatsApp"
       >
         <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12.031 0C5.385 0 0 5.384 0 12.032c0 2.658.687 5.24 1.996 7.514L.048 24l4.636-1.216A11.961 11.961 0 0012.031 24c6.646 0 12.03-5.384 12.03-12.032C24.06 5.384 18.676 0 12.031 0zm3.626 17.202c-.546 1.543-3.136 1.597-3.327 1.6-.234.004-1.127-.184-3.175-1.04-2.827-1.182-4.66-4.086-4.802-4.276-.142-.19-1.144-1.523-1.144-2.906 0-1.383.712-2.06 1.002-2.368.24-.254.665-.333.955-.333.284 0 .445.012.636.012.235 0 .551-.09.86.657.327.79.882 2.152.955 2.295.074.143.143.333.023.571-.118.238-.184.381-.375.603-.19.223-.403.486-.569.629-.19.167-.394.349-.166.741.228.393 1.018 1.68 2.186 2.723 1.51 1.348 2.766 1.767 3.167 1.956.398.19.64.167.876-.104.238-.27.994-1.157 1.256-1.554.26-.398.523-.333.882-.19.355.143 2.247 1.058 2.632 1.25.385.19.64.285.735.444.096.158.096.918-.45 2.46z"/>
