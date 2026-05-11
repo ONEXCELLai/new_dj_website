@@ -1,104 +1,156 @@
 import { Link } from "react-router-dom";
-import { Music4, Mic2, CalendarHeart, ArrowRight, Sparkles } from "lucide-react";
-// 3D Component එක පසුව අපි හදමු, දැනට import එක තියන්න.
+import { Mic2, ArrowRight, Sparkles, Gamepad2, Wine, ListMusic, Star } from "lucide-react";
+import { motion } from "framer-motion";
 import VinylScene from "../components/three/VinylScene"; 
 
-const highlights = [
+const usps = [
   {
-    icon: Music4,
-    title: "Premium Video DJ",
-    desc: "Curated music videos synced to the moment — sight + sound that move the room.",
+    icon: Gamepad2,
+    title: "Best Kids & Teen Party VDJ",
+    desc: "Keeping young crowds engaged is an art. Clean music edits, interactive games, TikTok trends, and high-energy visuals.",
+    colSpan: "md:col-span-2 lg:col-span-1",
   },
   {
     icon: Mic2,
-    title: "Karaoke Host",
-    desc: "Live karaoke visuals with confident MC flow, encouraging every guest to shine.",
+    title: "Best Karaoke & Dance VDJ",
+    desc: "Live video lyrics on screens with confidence-building MC control. Turning your guests into the stars of the night.",
+    colSpan: "md:col-span-2 lg:col-span-2",
   },
   {
-    icon: CalendarHeart,
-    title: "Event Flow Specialist",
-    desc: "Kids parties, teen birthdays, weddings, elders' celebrations & corporate galas.",
+    icon: Wine,
+    title: "Mature & Elders Parties",
+    desc: "Master of pace for the older crowd. Golden oldies, 70s/80s classics, baila, and sing-alongs at the perfect volume.",
+    colSpan: "md:col-span-2 lg:col-span-2",
+  },
+  {
+    icon: ListMusic,
+    title: "Unique Event Flow",
+    desc: "Not just playing songs. I craft unique games, custom background tracks, and coordinate seamlessly with event managers.",
+    colSpan: "md:col-span-2 lg:col-span-1",
   },
 ];
 
 export default function Home() {
   return (
     <div className="relative">
-      {/* HERO SECTION */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background Glow Effects */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-10 left-10 w-[400px] h-[400px] rounded-full bg-vdj-gold/10 blur-[140px]" />
+      {/* CINEMATIC HERO SECTION */}
+      <section className="relative min-h-[95vh] flex items-center overflow-hidden">
+        {/* Background Image with Overlay (Report එකේ ඉල්ලපු Cinematic Feel එක) */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/flagged/photo-1569521739482-5443615d3725?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            alt="DJ Crowd Performance" 
+            className="w-full h-full object-cover opacity-80 grayscale-[30%]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-vdj-bg via-vdj-bg/95 to-vdj-bg/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-vdj-bg via-transparent to-transparent" />
+        </div>
+
+        {/* Glow Effects */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute top-20 left-10 w-[400px] h-[400px] rounded-full bg-vdj-gold/10 blur-[140px]" />
           <div className="absolute bottom-10 right-10 w-[500px] h-[500px] rounded-full bg-vdj-goldLight/5 blur-[160px]" />
         </div>
 
-        <div className="relative z-10 grid items-center w-full gap-12 px-6 mx-auto max-w-7xl lg:px-12 lg:grid-cols-12">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-12 items-center relative z-10 w-full pt-10">
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-vdj-gold/30 bg-vdj-gold/5 backdrop-blur mb-6">
-              <Sparkles className="w-4 h-4 text-vdj-gold" />
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-vdj-gold/30 bg-vdj-gold/5 backdrop-blur mb-6"
+            >
+              <Star className="w-4 h-4 text-vdj-gold fill-vdj-gold" />
               <span className="font-mono text-[11px] tracking-[0.2em] text-vdj-goldLight uppercase">
-                Est. 1996 · Melbourne → Sydney → Colombo
+                Sri Lanka's Premium Video DJ
               </span>
-            </div>
+            </motion.div>
 
-            <h1 className="text-5xl font-black leading-tight tracking-tight font-heading sm:text-6xl lg:text-7xl">
-              The Ultimate
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="font-heading text-5xl sm:text-6xl lg:text-[5rem] font-black leading-[1.05] tracking-tight"
+            >
+              Experience the
               <br />
-              <span className="text-gold-gradient">Video DJ</span>
-              <br />
-              Experience.
-            </h1>
+              <span className="text-gold-gradient">Ultimate Rhythm.</span>
+            </motion.h1>
 
-            <p className="max-w-2xl mt-6 text-lg leading-relaxed sm:text-xl text-vdj-muted">
-              Nearly <span className="font-semibold text-vdj-text">30 years</span> of professional DJ artistry. Creating unforgettable moments through music, visuals, and voice.
-            </p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-6 text-lg sm:text-xl text-vdj-muted max-w-2xl leading-relaxed"
+            >
+              With nearly <span className="text-vdj-text font-semibold">30 years</span> of expertise across Melbourne, Sydney, and Colombo. I don't just play music; I craft emotional journeys, blending custom visuals, live karaoke, and flawless event coordination.
+            </motion.p>
 
-            <div className="flex flex-col gap-5 mt-10 sm:flex-row">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-10 flex flex-col sm:flex-row gap-5"
+            >
               <Link
                 to="/contact"
                 className="group flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-vdj-gold text-vdj-bg font-bold tracking-wide hover:bg-vdj-goldLight transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)]"
               >
-                Book Your Event <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                Book Your Event <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                to="/packages"
-                className="flex items-center justify-center px-8 py-4 font-semibold transition-all border rounded-full border-white/20 text-vdj-text hover:border-vdj-gold hover:text-vdj-goldLight glass-panel"
+                to="/testimonials"
+                className="flex items-center justify-center px-8 py-4 rounded-full border border-white/20 text-vdj-text hover:border-vdj-gold hover:text-vdj-goldLight transition-all font-semibold glass-panel"
               >
-                Explore Packages
+                Read Client Reviews
               </Link>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="lg:col-span-5 h-[400px] sm:h-[500px] relative hidden lg:block">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="lg:col-span-5 h-[400px] sm:h-[500px] relative hidden lg:block"
+          >
              <VinylScene /> 
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* HIGHLIGHTS SECTION (BENTO GRID) */}
-      <section className="relative z-10 py-24 border-t border-white/5 bg-vdj-surface/30">
-        <div className="px-6 mx-auto max-w-7xl lg:px-12">
-          <div className="mb-16">
-            <p className="font-mono text-xs tracking-[0.3em] text-vdj-gold mb-4">◢ SIGNATURE OFFERINGS</p>
-            <h2 className="text-4xl font-bold font-heading sm:text-5xl">
-              Three pillars of an <span className="italic text-vdj-gold">unforgettable</span> night.
+      {/* WHY CHOOSE US (CLIENT'S USPs) SECTION */}
+      <section className="py-24 relative z-10 bg-vdj-surface/50 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="mb-16 text-center max-w-3xl mx-auto">
+            <p className="font-mono text-xs tracking-[0.3em] text-vdj-gold mb-4 flex items-center justify-center gap-2">
+              <Sparkles className="w-4 h-4" /> THE VINS DIFFERENCE
+            </p>
+            <h2 className="font-heading text-4xl sm:text-5xl font-bold">
+              Mastering every crowd. <br/>
+              <span className="text-vdj-gold italic font-medium">Any age. Any vibe.</span>
             </h2>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3">
-            {highlights.map((h, i) => (
-              <div key={i} className="p-8 glass-panel rounded-2xl group">
-                <div className="flex items-center justify-center mb-6 transition-colors duration-300 border w-14 h-14 rounded-xl bg-vdj-gold/10 border-vdj-gold/20 group-hover:bg-vdj-gold/20">
-                  <h.icon className="w-7 h-7 text-vdj-gold" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {usps.map((u, i) => (
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className={`glass-panel rounded-3xl p-8 sm:p-10 group border-white/5 hover:border-vdj-gold/40 transition-all duration-500 ${u.colSpan}`}
+              >
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 bg-gradient-to-br from-vdj-gold/20 to-transparent border border-vdj-gold/20 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(212,175,55,0.1)]">
+                  <u.icon className="w-8 h-8 text-vdj-gold" />
                 </div>
-                <h3 className="mb-3 text-2xl font-semibold font-heading text-vdj-text">
-                  {h.title}
+                <h3 className="font-heading text-2xl font-bold mb-4 text-white">
+                  {u.title}
                 </h3>
-                <p className="leading-relaxed text-vdj-muted">{h.desc}</p>
-                <div className="mt-8 font-mono text-[10px] tracking-[0.3em] text-white/20">
-                  0{i + 1} / 03
-                </div>
-              </div>
+                <p className="text-vdj-muted leading-relaxed text-lg">
+                  {u.desc}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
